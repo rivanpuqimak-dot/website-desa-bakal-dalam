@@ -1,0 +1,39 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-DC2NdiZ5.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/app.public-home.css": {
+    "file": "assets/app-BFEHyVKD.css",
+    "src": "resources/css/app.public-home.css",
+    "isEntry": true,
+    "name": "app.public-home",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/app.public-profile.css": {
+    "file": "assets/app-DKwXVGpU.css",
+    "src": "resources/css/app.public-profile.css",
+    "isEntry": true,
+    "name": "app.public-profile",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-B97j0eTn.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-DBkz-poX.css",
+      "assets/app-DC2NdiZ5.css"
+    ]
+  }
+}
