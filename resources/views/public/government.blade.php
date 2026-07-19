@@ -1397,6 +1397,25 @@
     }
 </style>
 
+
+<style>
+    /* Android: gunakan satu cara menutup modal, yaitu tombol Kembali */
+    @media (max-width: 700px) {
+        .government-profile-modal .modal-header .btn-close {
+            display: none !important;
+        }
+
+        .government-profile-modal .modal-header {
+            justify-content: flex-start !important;
+        }
+
+        .government-profile-modal .modal-title {
+            width: 100%;
+            text-align: left;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
