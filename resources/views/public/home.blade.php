@@ -2058,6 +2058,160 @@
 
 @endpush
 
+
+<style>
+    /* =====================================================
+       BERITA ANDROID — HORIZONTAL, RINGKAS, DAN SERAGAM
+    ===================================================== */
+
+    .home-news-image {
+        position: relative;
+    }
+
+    .home-news-image-fallback {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        color: var(--home-green);
+        background:
+            linear-gradient(
+                145deg,
+                #edf7f1,
+                #e5f1e9
+            );
+        font-size: 28px;
+    }
+
+    .home-news-image-fallback[hidden] {
+        display: none !important;
+    }
+
+    .home-news-image.is-image-missing {
+        border-right: 1px solid var(--home-border);
+    }
+
+    @media (max-width: 767.98px) {
+        .home-news {
+            padding-top: 42px !important;
+            padding-bottom: 42px !important;
+        }
+
+        .home-news .home-section-heading {
+            margin-bottom: 18px !important;
+        }
+
+        .home-news-grid {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+        }
+
+        .home-news-card {
+            min-height: 150px !important;
+            display: grid !important;
+            grid-template-columns: 124px minmax(0, 1fr) !important;
+            overflow: hidden !important;
+            border-radius: 15px !important;
+        }
+
+        .home-news-image {
+            width: 124px !important;
+            height: 100% !important;
+            min-height: 150px !important;
+            aspect-ratio: auto !important;
+            border-radius: 0 !important;
+        }
+
+        .home-news-image img {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 150px !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            color: transparent !important;
+            font-size: 0 !important;
+        }
+
+        .home-news-content {
+            min-width: 0 !important;
+            min-height: 150px !important;
+            padding: 13px 14px !important;
+        }
+
+        .home-news-date {
+            margin-bottom: 5px !important;
+            font-size: 8.5px !important;
+        }
+
+        .home-news-content h3 {
+            height: auto !important;
+            display: -webkit-box !important;
+            margin: 0 0 6px !important;
+            overflow: hidden !important;
+            font-size: 13px !important;
+            line-height: 1.35 !important;
+            -webkit-box-orient: vertical !important;
+            -webkit-line-clamp: 2 !important;
+        }
+
+        .home-news-content p {
+            height: auto !important;
+            display: -webkit-box !important;
+            margin: 0 0 8px !important;
+            overflow: hidden !important;
+            font-size: 9.5px !important;
+            line-height: 1.5 !important;
+            -webkit-box-orient: vertical !important;
+            -webkit-line-clamp: 2 !important;
+        }
+
+        .home-news-button {
+            margin-top: auto !important;
+            padding: 6px 9px !important;
+            border-radius: 8px !important;
+            font-size: 8.5px !important;
+        }
+
+        .home-news-card:hover {
+            transform: none !important;
+        }
+
+        .home-news-card:hover img {
+            transform: none !important;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .home-news-card {
+            min-height: 138px !important;
+            grid-template-columns: 102px minmax(0, 1fr) !important;
+        }
+
+        .home-news-image {
+            width: 102px !important;
+            min-height: 138px !important;
+        }
+
+        .home-news-image img {
+            min-height: 138px !important;
+        }
+
+        .home-news-content {
+            min-height: 138px !important;
+            padding: 11px 12px !important;
+        }
+
+        .home-news-content h3 {
+            font-size: 12px !important;
+        }
+
+        .home-news-content p {
+            font-size: 8.8px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -2811,9 +2965,23 @@
                         >
                             <img
                                 src="{{ $newsImage }}"
-                                alt="{{ $item->judul }}"
+                                alt=""
                                 loading="lazy"
+                                onerror="
+                                    this.hidden = true;
+                                    this.nextElementSibling.hidden = false;
+                                    this.parentElement.classList.add(
+                                        'is-image-missing'
+                                    );
+                                "
                             >
+
+                            <span
+                                class="home-news-image-fallback"
+                                hidden
+                            >
+                                <i class="bi bi-newspaper"></i>
+                            </span>
                         </a>
 
                         <div class="home-news-content">
