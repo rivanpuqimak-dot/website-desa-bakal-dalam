@@ -1416,6 +1416,76 @@
     }
 </style>
 
+
+<style>
+    /* Hilangkan tampilan biru saat gambar struktur gagal dimuat */
+    .government-institution-structure-link {
+        outline: none;
+    }
+
+    .government-institution-structure-link img {
+        border: 0 !important;
+        outline: 0 !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
+    .government-institution-structure-link:focus-visible {
+        outline: 3px solid rgba(22, 131, 79, 0.24);
+        outline-offset: 3px;
+    }
+
+    .government-institution-structure-fallback {
+        width: 100%;
+        height: 360px;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 8px;
+        padding: 24px;
+        color: var(--government-muted);
+        background:
+            linear-gradient(
+                145deg,
+                #f4faf6,
+                #edf5f0
+            );
+        text-align: center;
+    }
+
+    .government-institution-structure-fallback[hidden] {
+        display: none !important;
+    }
+
+    .government-institution-structure-fallback i {
+        color: var(--government-green);
+        font-size: 34px;
+    }
+
+    .government-institution-structure-fallback strong {
+        color: var(--government-navy);
+        font-size: 12px;
+    }
+
+    .government-institution-structure-fallback small {
+        max-width: 250px;
+        color: var(--government-muted);
+        font-size: 9px;
+        line-height: 1.55;
+    }
+
+    .government-institution-structure-link.is-image-missing
+    .government-institution-structure-zoom {
+        display: none;
+    }
+
+    @media (max-width: 767.98px) {
+        .government-institution-structure-fallback {
+            height: 290px;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -2177,9 +2247,34 @@
                             >
                                 <img
                                     src="{{ $structureImage }}"
-                                    alt="{{ $structure['title'] }}"
+                                    alt=""
                                     loading="lazy"
+                                    onerror="
+                                        this.hidden = true;
+                                        this.nextElementSibling.hidden = false;
+                                        this.parentElement.classList.add(
+                                            'is-image-missing'
+                                        );
+                                    "
                                 >
+
+                                <span
+                                    class="
+                                        government-institution-structure-fallback
+                                    "
+                                    hidden
+                                >
+                                    <i class="bi bi-image"></i>
+
+                                    <strong>
+                                        Gambar struktur tidak dapat dimuat
+                                    </strong>
+
+                                    <small>
+                                        Periksa kembali file gambar di
+                                        penyimpanan website.
+                                    </small>
+                                </span>
 
                                 <span
                                     class="
