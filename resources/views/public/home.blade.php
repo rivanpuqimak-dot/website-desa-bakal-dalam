@@ -2307,6 +2307,59 @@
     }
 </style>
 
+
+<style>
+    /* Tombol menuju halaman Profil Desa */
+    .home-profile-action {
+        margin-top: 20px;
+    }
+
+    .home-profile-more {
+        min-height: 43px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 15px;
+        color: var(--home-green-dark, #0d6139);
+        background: var(--home-green-soft, #eef7f2);
+        border: 1px solid rgba(22, 131, 79, 0.20);
+        border-radius: 11px;
+        font-size: 10px;
+        font-weight: 800;
+        text-decoration: none;
+        transition:
+            color 0.2s ease,
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .home-profile-more:hover {
+        color: #ffffff;
+        background: var(--home-green, #16834f);
+        border-color: var(--home-green, #16834f);
+        transform: translateY(-2px);
+    }
+
+    .home-profile-more i {
+        font-size: 11px;
+    }
+
+    @media (max-width: 767.98px) {
+        .home-profile-action {
+            margin-top: 14px;
+        }
+
+        .home-profile-more {
+            min-height: 39px;
+            padding: 8px 12px;
+            border-radius: 9px;
+            font-size: 9px;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -2703,6 +2756,16 @@
                             {{ $profile?->provinsi ?? 'Bengkulu' }}
                         </strong>
                     </div>
+                </div>
+
+                <div class="home-profile-action">
+                    <a
+                        href="{{ url('/profil-desa') }}"
+                        class="home-profile-more"
+                    >
+                        Lihat Selengkapnya
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
