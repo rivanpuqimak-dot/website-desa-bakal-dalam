@@ -934,6 +934,469 @@
 
 @endpush
 
+
+<style>
+    /* =====================================================
+       UKURAN FOTO DAN FOOTER APARAT SERAGAM
+    ===================================================== */
+
+    .government-people-grid {
+        align-items: stretch !important;
+    }
+
+    .government-person-card {
+        height: 100% !important;
+        display: grid !important;
+        grid-template-rows:
+            minmax(0, 1fr)
+            126px !important;
+    }
+
+    .government-person-photo-button {
+        width: 100% !important;
+        height: clamp(260px, 21vw, 360px) !important;
+        min-height: 260px !important;
+        aspect-ratio: auto !important;
+        flex: none !important;
+    }
+
+    .government-person-photo {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: grid !important;
+        place-items: center !important;
+        overflow: hidden !important;
+        font-size: 0 !important;
+    }
+
+    .government-person-photo img {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center top !important;
+    }
+
+    .government-person-image-fallback {
+        display: none;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        color: var(--government-green);
+        background:
+            radial-gradient(
+                circle at center,
+                rgba(22, 131, 79, 0.12),
+                transparent 48%
+            ),
+            #edf5f0;
+        font-size: 64px;
+    }
+
+    .government-person-photo.is-image-missing
+    .government-person-image-fallback {
+        display: grid;
+    }
+
+    .government-person-caption {
+        width: 100% !important;
+        height: 126px !important;
+        min-height: 126px !important;
+        max-height: 126px !important;
+        flex: none !important;
+        padding: 14px 12px !important;
+    }
+
+    .government-person-name {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .government-person-role {
+        display: -webkit-box;
+        min-height: 36px;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    @media (max-width: 1100px) {
+        .government-person-photo-button {
+            height: clamp(245px, 31vw, 330px) !important;
+            min-height: 245px !important;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .government-person-card {
+            grid-template-rows:
+                minmax(0, 1fr)
+                112px !important;
+        }
+
+        .government-person-photo-button {
+            height: clamp(210px, 56vw, 320px) !important;
+            min-height: 210px !important;
+        }
+
+        .government-person-caption {
+            height: 112px !important;
+            min-height: 112px !important;
+            max-height: 112px !important;
+            padding: 10px 7px !important;
+        }
+
+        .government-person-name {
+            font-size: 12px !important;
+        }
+
+        .government-person-role {
+            min-height: 28px;
+            font-size: 10px !important;
+        }
+
+        .government-person-image-fallback {
+            font-size: 46px;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .government-person-photo-button {
+            height: clamp(190px, 58vw, 245px) !important;
+            min-height: 190px !important;
+        }
+    }
+</style>
+
+
+<style>
+    /* =====================================================
+       MODAL PROFIL — ANDROID LEBIH RINGKAS
+    ===================================================== */
+
+    @media (max-width: 700px) {
+        .government-profile-modal {
+            padding: 0 !important;
+        }
+
+        .government-profile-modal .modal-dialog {
+            width: auto;
+            max-width: none;
+            margin: 8px;
+        }
+
+        .government-profile-modal .modal-content {
+            max-height: calc(100dvh - 16px);
+            border-radius: 16px;
+            box-shadow: 0 18px 52px rgba(8, 51, 30, 0.24);
+        }
+
+        .government-profile-modal .modal-header {
+            min-height: 48px;
+            padding: 11px 14px;
+        }
+
+        .government-profile-modal .modal-title {
+            font-size: 13px;
+        }
+
+        .government-profile-modal .btn-close {
+            width: 28px;
+            height: 28px;
+            margin: 0;
+            padding: 6px;
+        }
+
+        .government-profile-modal .modal-body {
+            overflow-y: auto;
+        }
+
+        .government-profile-layout {
+            min-height: 0;
+            grid-template-columns: 1fr;
+        }
+
+        .government-profile-visual,
+        .government-profile-visual img {
+            width: 100%;
+            height: 205px;
+            min-height: 205px;
+            max-height: 205px;
+        }
+
+        .government-profile-visual {
+            font-size: 52px;
+        }
+
+        .government-profile-content {
+            justify-content: flex-start;
+            padding: 17px 16px 19px;
+        }
+
+        .government-profile-label {
+            gap: 6px;
+            padding: 6px 9px;
+            font-size: 7.5px;
+            letter-spacing: 0.045em;
+        }
+
+        .government-profile-name {
+            margin-top: 12px;
+            font-size: 23px;
+            line-height: 1.13;
+            letter-spacing: -0.03em;
+        }
+
+        .government-profile-role {
+            margin-top: 5px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .government-profile-nip {
+            margin-top: 10px;
+            padding: 7px 9px;
+            font-size: 8.5px;
+        }
+
+        .government-profile-description-title {
+            margin-top: 16px;
+            font-size: 9px;
+        }
+
+        .government-profile-description {
+            margin-top: 6px;
+            font-size: 11.5px;
+            line-height: 1.62;
+        }
+
+        .government-profile-footer {
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
+            padding: 9px 12px 11px;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
+        }
+
+        .government-profile-back-button {
+            min-height: 41px;
+            border-radius: 9px;
+            font-size: 10px;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .government-profile-modal .modal-dialog {
+            margin: 6px;
+        }
+
+        .government-profile-modal .modal-content {
+            max-height: calc(100dvh - 12px);
+            border-radius: 14px;
+        }
+
+        .government-profile-visual,
+        .government-profile-visual img {
+            height: 178px;
+            min-height: 178px;
+            max-height: 178px;
+        }
+
+        .government-profile-content {
+            padding: 15px 14px 17px;
+        }
+
+        .government-profile-name {
+            font-size: 21px;
+        }
+    }
+
+    @media (max-height: 650px) and (max-width: 700px) {
+        .government-profile-visual,
+        .government-profile-visual img {
+            height: 155px;
+            min-height: 155px;
+            max-height: 155px;
+        }
+    }
+</style>
+
+
+<style>
+    /* =====================================================
+       MODAL PROFIL ANDROID — SANGAT RINGKAS
+    ===================================================== */
+
+    @media (max-width: 700px) {
+        .government-profile-modal {
+            padding: 0 !important;
+        }
+
+        .government-profile-modal .modal-dialog {
+            width: calc(100% - 28px) !important;
+            max-width: 410px !important;
+            margin: 14px auto !important;
+        }
+
+        .government-profile-modal .modal-content {
+            max-height: calc(100dvh - 28px) !important;
+            overflow: hidden !important;
+            border-radius: 15px !important;
+            box-shadow:
+                0 18px 48px rgba(8, 51, 30, 0.24) !important;
+        }
+
+        .government-profile-modal .modal-header {
+            min-height: 40px !important;
+            padding: 8px 11px !important;
+        }
+
+        .government-profile-modal .modal-title {
+            font-size: 11px !important;
+        }
+
+        .government-profile-modal .btn-close {
+            width: 24px !important;
+            height: 24px !important;
+            margin: 0 !important;
+            padding: 5px !important;
+        }
+
+        .government-profile-modal .modal-body {
+            overflow-y: auto !important;
+        }
+
+        .government-profile-layout {
+            display: block !important;
+            min-height: 0 !important;
+        }
+
+        .government-profile-visual {
+            width: 96px !important;
+            height: 96px !important;
+            min-height: 96px !important;
+            max-height: 96px !important;
+            margin: 14px auto 0 !important;
+            overflow: hidden !important;
+            border: 1px solid rgba(22, 131, 79, 0.14) !important;
+            border-radius: 16px !important;
+            font-size: 34px !important;
+        }
+
+        .government-profile-visual img {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            object-fit: cover !important;
+            object-position: center top !important;
+            color: transparent !important;
+            font-size: 0 !important;
+        }
+
+        .government-profile-content {
+            display: flex !important;
+            justify-content: flex-start !important;
+            padding: 12px 15px 14px !important;
+        }
+
+        .government-profile-label {
+            align-self: center !important;
+            gap: 5px !important;
+            padding: 5px 8px !important;
+            font-size: 7px !important;
+            letter-spacing: 0.035em !important;
+        }
+
+        .government-profile-name {
+            margin-top: 9px !important;
+            font-size: 19px !important;
+            line-height: 1.14 !important;
+            text-align: center !important;
+            letter-spacing: -0.025em !important;
+        }
+
+        .government-profile-role {
+            margin-top: 4px !important;
+            font-size: 10.5px !important;
+            line-height: 1.35 !important;
+            text-align: center !important;
+        }
+
+        .government-profile-nip {
+            align-self: center !important;
+            margin-top: 8px !important;
+            padding: 6px 8px !important;
+            font-size: 8px !important;
+        }
+
+        .government-profile-description-title {
+            margin-top: 13px !important;
+            font-size: 8px !important;
+        }
+
+        .government-profile-description {
+            margin-top: 5px !important;
+            font-size: 10.5px !important;
+            line-height: 1.55 !important;
+        }
+
+        .government-profile-footer {
+            position: sticky !important;
+            bottom: 0 !important;
+            z-index: 2 !important;
+            padding: 8px 11px 10px !important;
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(8px) !important;
+        }
+
+        .government-profile-back-button {
+            min-height: 38px !important;
+            border-radius: 9px !important;
+            font-size: 9.5px !important;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .government-profile-modal .modal-dialog {
+            width: calc(100% - 20px) !important;
+            margin: 10px auto !important;
+        }
+
+        .government-profile-modal .modal-content {
+            max-height: calc(100dvh - 20px) !important;
+        }
+
+        .government-profile-visual {
+            width: 84px !important;
+            height: 84px !important;
+            min-height: 84px !important;
+            max-height: 84px !important;
+            margin-top: 12px !important;
+            border-radius: 14px !important;
+            font-size: 30px !important;
+        }
+
+        .government-profile-content {
+            padding: 10px 13px 12px !important;
+        }
+
+        .government-profile-name {
+            font-size: 18px !important;
+        }
+
+        .government-profile-description {
+            font-size: 10px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -1131,7 +1594,19 @@
                                             src="{{ $fotoOfficial }}"
                                             alt="{{ $official->nama }}"
                                             loading="lazy"
+                                            onerror="
+                                                this.hidden = true;
+                                                this.parentElement.classList.add(
+                                                    'is-image-missing'
+                                                );
+                                            "
                                         >
+
+                                        <i
+                                            class="bi bi-person-fill
+                                            government-person-image-fallback"
+                                            aria-hidden="true"
+                                        ></i>
 
                                     @else
 
@@ -1222,9 +1697,19 @@
                                         @if($officialModalPhoto)
                                             <img
                                                 src="{{ $officialModalPhoto }}"
-                                                alt="{{ $official->nama }}"
+                                                alt=""
                                                 loading="lazy"
+                                                onerror="
+                                                    this.hidden = true;
+                                                    this.nextElementSibling
+                                                        .hidden = false;
+                                                "
                                             >
+
+                                            <i
+                                                class="bi bi-person-fill"
+                                                hidden
+                                            ></i>
                                         @else
                                             <i class="bi bi-person-fill"></i>
                                         @endif
@@ -1345,28 +1830,53 @@
 
                         <article class="government-person-card">
 
-                            <div
-                                class="government-person-photo
-                                {{ !$fotoBpd
-                                    ? 'government-person-placeholder'
-                                    : '' }}"
+                            <button
+                                type="button"
+                                class="government-person-photo-button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#bpdProfileModal{{ $bpd->id }}"
+                                aria-label="Lihat profil {{ $bpd->nama }}"
                             >
+                                <span
+                                    class="government-person-photo
+                                    {{ !$fotoBpd
+                                        ? 'government-person-placeholder'
+                                        : '' }}"
+                                >
 
-                                @if($fotoBpd)
+                                    @if($fotoBpd)
 
-                                    <img
-                                        src="{{ $fotoBpd }}"
-                                        alt="{{ $bpd->nama }}"
-                                        loading="lazy"
-                                    >
+                                        <img
+                                            src="{{ $fotoBpd }}"
+                                            alt=""
+                                            loading="lazy"
+                                            onerror="
+                                                this.hidden = true;
+                                                this.parentElement.classList.add(
+                                                    'is-image-missing'
+                                                );
+                                            "
+                                        >
 
-                                @else
+                                        <i
+                                            class="bi bi-person-fill
+                                            government-person-image-fallback"
+                                            aria-hidden="true"
+                                        ></i>
 
-                                    <i class="bi bi-person-fill"></i>
+                                    @else
 
-                                @endif
+                                        <i class="bi bi-person-fill"></i>
 
-                            </div>
+                                    @endif
+
+                                </span>
+
+                                <span class="government-person-photo-overlay">
+                                    <i class="bi bi-info-circle"></i>
+                                    Lihat Keterangan
+                                </span>
+                            </button>
 
                             <div class="government-person-caption">
 
@@ -1387,6 +1897,146 @@
                 </div>
 
             @endif
+
+            @foreach($bpdList as $bpd)
+
+                @php
+                    $bpdModalPhoto = filled($bpd->foto)
+                        ? asset(
+                            'storage/' .
+                            ltrim($bpd->foto, '/')
+                        )
+                        : null;
+                @endphp
+
+                <div
+                    class="modal fade government-profile-modal"
+                    id="bpdProfileModal{{ $bpd->id }}"
+                    tabindex="-1"
+                    aria-labelledby="bpdProfileTitle{{ $bpd->id }}"
+                    aria-hidden="true"
+                >
+                    <div
+                        class="
+                            modal-dialog
+                            modal-dialog-centered
+                            modal-dialog-scrollable
+                        "
+                    >
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+
+                                <h2
+                                    class="modal-title"
+                                    id="bpdProfileTitle{{ $bpd->id }}"
+                                >
+                                    Profil Anggota BPD
+                                </h2>
+
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Tutup"
+                                ></button>
+
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div class="government-profile-layout">
+
+                                    <div class="government-profile-visual">
+
+                                        @if($bpdModalPhoto)
+
+                                            <img
+                                                src="{{ $bpdModalPhoto }}"
+                                                alt="{{ $bpd->nama }}"
+                                                loading="lazy"
+                                                onerror="
+                                                    this.hidden = true;
+                                                    this.nextElementSibling
+                                                        .hidden = false;
+                                                "
+                                            >
+
+                                            <i
+                                                class="bi bi-person-fill"
+                                                hidden
+                                            ></i>
+
+                                        @else
+
+                                            <i class="bi bi-person-fill"></i>
+
+                                        @endif
+
+                                    </div>
+
+                                    <div class="government-profile-content">
+
+                                        <span class="government-profile-label">
+                                            <i class="bi bi-people-fill"></i>
+                                            Badan Permusyawaratan Desa
+                                        </span>
+
+                                        <h3 class="government-profile-name">
+                                            {{ $bpd->nama }}
+                                        </h3>
+
+                                        <div class="government-profile-role">
+                                            {{ $bpd->jabatan }}
+                                        </div>
+
+                                        <strong
+                                            class="
+                                                government-profile-description-title
+                                            "
+                                        >
+                                            Deskripsi
+                                        </strong>
+
+                                        <p
+                                            class="
+                                                government-profile-description
+                                                {{ filled($bpd->deskripsi)
+                                                    ? ''
+                                                    : 'empty'
+                                                }}
+                                            "
+                                        >
+                                            {{ filled($bpd->deskripsi)
+                                                ? $bpd->deskripsi
+                                                : 'Deskripsi anggota BPD belum tersedia.'
+                                            }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer government-profile-footer">
+
+                                <button
+                                    type="button"
+                                    class="government-profile-back-button"
+                                    data-bs-dismiss="modal"
+                                >
+                                    <i class="bi bi-arrow-left"></i>
+                                    Kembali
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            @endforeach
 
         </div>
     </section>
