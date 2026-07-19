@@ -2212,6 +2212,101 @@
     }
 </style>
 
+
+<style>
+    /* =====================================================
+       FASILITAS ANDROID — RINGKAS 2 KOLOM
+    ===================================================== */
+
+    @media (max-width: 767.98px) {
+        .home-facility-section {
+            padding: 18px 0 24px !important;
+        }
+
+        .home-facility-grid {
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr)) !important;
+            gap: 9px !important;
+        }
+
+        .home-facility-card {
+            min-width: 0 !important;
+            min-height: 74px !important;
+            gap: 9px !important;
+            padding: 11px 10px 11px 13px !important;
+            border-radius: 13px !important;
+            box-shadow:
+                0 7px 18px rgba(16, 82, 48, 0.06) !important;
+        }
+
+        .home-facility-card::before {
+            top: 10px !important;
+            bottom: 10px !important;
+            width: 3px !important;
+        }
+
+        .home-facility-icon {
+            width: 34px !important;
+            height: 34px !important;
+            flex: 0 0 34px !important;
+            border-radius: 10px !important;
+            font-size: 13px !important;
+        }
+
+        .home-facility-card > div {
+            min-width: 0;
+        }
+
+        .home-facility-card strong {
+            font-size: 16px !important;
+            line-height: 1 !important;
+        }
+
+        .home-facility-card span {
+            margin-top: 5px !important;
+            overflow: hidden;
+            font-size: 8px !important;
+            line-height: 1.3 !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .home-facility-section::after {
+            width: 190px !important;
+            height: 190px !important;
+            right: -70px !important;
+            bottom: -80px !important;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .home-facility-grid {
+            gap: 7px !important;
+        }
+
+        .home-facility-card {
+            min-height: 68px !important;
+            gap: 7px !important;
+            padding: 9px 8px 9px 11px !important;
+        }
+
+        .home-facility-icon {
+            width: 30px !important;
+            height: 30px !important;
+            flex-basis: 30px !important;
+            font-size: 12px !important;
+        }
+
+        .home-facility-card strong {
+            font-size: 15px !important;
+        }
+
+        .home-facility-card span {
+            font-size: 7.5px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
