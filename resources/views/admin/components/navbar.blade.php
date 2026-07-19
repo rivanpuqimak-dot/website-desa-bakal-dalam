@@ -176,14 +176,72 @@
 
         </div>
 
-        <button
-            type="button"
-            class="notif"
-            aria-label="Notifikasi"
-            title="Notifikasi"
+        <div
+            class="notification-dropdown"
+            data-notification-dropdown
         >
-            <i class="bi bi-bell"></i>
-        </button>
+            <button
+                type="button"
+                class="notif"
+                aria-label="Buka notifikasi"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="admin-notification-panel"
+                title="Notifikasi"
+                data-notification-toggle
+            >
+                <i class="bi bi-bell"></i>
+            </button>
+
+            <div
+                class="notification-panel"
+                id="admin-notification-panel"
+                role="dialog"
+                aria-label="Notifikasi admin"
+                data-notification-panel
+            >
+                <div class="notification-panel-header">
+                    <div>
+                        <strong>Notifikasi</strong>
+                        <span>Informasi terbaru untuk admin</span>
+                    </div>
+
+                    <span class="notification-count">
+                        0 baru
+                    </span>
+                </div>
+
+                <div class="notification-empty">
+                    <span class="notification-empty-icon">
+                        <i class="bi bi-bell-slash"></i>
+                    </span>
+
+                    <strong>Belum ada notifikasi baru</strong>
+
+                    <p>
+                        Informasi penting dan pembaruan aktivitas
+                        website akan tampil di bagian ini.
+                    </p>
+                </div>
+
+                <div class="notification-quick-links">
+                    <a href="{{ route('admin.berita') }}">
+                        <i class="bi bi-newspaper"></i>
+                        Kelola Berita
+                    </a>
+
+                    <a href="{{ route('admin.agenda') }}">
+                        <i class="bi bi-calendar-event"></i>
+                        Kelola Agenda
+                    </a>
+
+                    <a href="{{ route('admin.pengumuman') }}">
+                        <i class="bi bi-megaphone"></i>
+                        Pengumuman
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <div class="admin-profile dropdown js-dropdown">
 
@@ -745,6 +803,371 @@
             max-width: 128px !important;
         }
     }
+
+    /*
+     * DESKTOP — ANTI TUMPANG TINDIH
+     * Membatasi lebar pencarian dan memberi ruang tetap untuk
+     * tanggal, notifikasi, serta profil admin.
+     */
+    @media (min-width: 992px) {
+        .navbar,
+        .navbar *,
+        .navbar *::before,
+        .navbar *::after {
+            box-sizing: border-box !important;
+        }
+
+        .navbar {
+            grid-template-columns:
+                minmax(210px, 280px)
+                minmax(260px, 1fr)
+                auto !important;
+            gap: 24px !important;
+            padding: 12px 26px !important;
+        }
+
+        .navbar .navbar-center {
+            width: min(100%, 520px) !important;
+            max-width: 520px !important;
+            min-width: 0 !important;
+            justify-self: center !important;
+        }
+
+        .navbar .search-box,
+        .navbar .search-box input {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .navbar-right {
+            width: auto !important;
+            min-width: 0 !important;
+            justify-self: end !important;
+            justify-content: flex-end !important;
+            gap: 12px !important;
+            margin-left: 0 !important;
+        }
+
+        .navbar-meta {
+            min-width: 128px !important;
+            flex: 0 0 128px !important;
+            margin: 0 !important;
+            padding: 8px 11px !important;
+            background: #f7faf8 !important;
+            border: 1px solid var(--admin-border) !important;
+            border-radius: 13px !important;
+        }
+
+        .date-label {
+            align-items: center !important;
+            text-align: center !important;
+        }
+
+        #navbar-date {
+            font-size: 9.5px !important;
+        }
+
+        #navbar-time {
+            margin-top: 4px !important;
+            font-size: 12.5px !important;
+        }
+
+        .navbar .notif {
+            width: 48px !important;
+            height: 48px !important;
+            flex: 0 0 48px !important;
+        }
+
+        .profile-trigger {
+            width: 245px !important;
+            max-width: 245px !important;
+            min-width: 0 !important;
+        }
+    }
+
+    /*
+     * Laptop: tanggal disembunyikan supaya pencarian dan profil
+     * tetap memiliki ruang yang cukup.
+     */
+    @media (min-width: 992px) and (max-width: 1299px) {
+        .navbar {
+            grid-template-columns:
+                minmax(185px, 220px)
+                minmax(230px, 1fr)
+                auto !important;
+            gap: 14px !important;
+            padding-inline: 18px !important;
+        }
+
+        .navbar .navbar-center {
+            width: min(100%, 440px) !important;
+            max-width: 440px !important;
+        }
+
+        .navbar-meta {
+            display: none !important;
+        }
+
+        .profile-trigger {
+            width: 215px !important;
+            max-width: 215px !important;
+        }
+    }
+
+    /*
+     * Desktop menengah: pencarian sedikit diperkecil agar ada
+     * jarak nyata sebelum kartu tanggal.
+     */
+    @media (min-width: 1300px) and (max-width: 1499px) {
+        .navbar {
+            grid-template-columns:
+                minmax(205px, 245px)
+                minmax(260px, 1fr)
+                auto !important;
+            gap: 18px !important;
+            padding-inline: 22px !important;
+        }
+
+        .navbar .navbar-center {
+            width: min(100%, 455px) !important;
+            max-width: 455px !important;
+        }
+
+        .navbar-meta {
+            min-width: 116px !important;
+            flex-basis: 116px !important;
+        }
+
+        .profile-trigger {
+            width: 220px !important;
+            max-width: 220px !important;
+        }
+    }
+
+    @media (min-width: 1500px) {
+        .navbar .navbar-center {
+            width: min(100%, 540px) !important;
+            max-width: 540px !important;
+        }
+    }
+
+
+    /* =====================================================
+       DROPDOWN NOTIFIKASI ADMIN
+    ===================================================== */
+
+    .notification-dropdown {
+        position: relative;
+        flex: 0 0 auto;
+    }
+
+    .notification-panel {
+        position: absolute;
+        top: calc(100% + 11px);
+        right: 0;
+        z-index: 1700;
+        width: min(340px, calc(100vw - 24px));
+        overflow: hidden;
+        display: none;
+        background: #ffffff;
+        border: 1px solid var(--admin-border);
+        border-radius: 17px;
+        box-shadow: 0 22px 55px rgba(18, 69, 43, 0.18);
+    }
+
+    .notification-dropdown.is-open
+    .notification-panel {
+        display: block;
+        animation: adminNotificationIn 0.16s ease;
+    }
+
+    .notification-dropdown.is-open
+    .notif {
+        color: #ffffff !important;
+        background: var(--admin-green) !important;
+        border-color: var(--admin-green) !important;
+    }
+
+    .notification-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 17px;
+        background: #f7faf8;
+        border-bottom: 1px solid var(--admin-border);
+    }
+
+    .notification-panel-header > div {
+        min-width: 0;
+    }
+
+    .notification-panel-header strong {
+        display: block;
+        color: var(--admin-navy);
+        font-size: 13px;
+        font-weight: 850;
+    }
+
+    .notification-panel-header span:not(
+        .notification-count
+    ) {
+        display: block;
+        margin-top: 3px;
+        color: var(--admin-muted);
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .notification-count {
+        flex: 0 0 auto;
+        padding: 5px 8px;
+        color: var(--admin-green-dark);
+        background: var(--admin-green-soft);
+        border: 1px solid rgba(22, 131, 79, 0.13);
+        border-radius: 999px;
+        font-size: 8.5px;
+        font-weight: 800;
+    }
+
+    .notification-empty {
+        padding: 24px 20px 21px;
+        text-align: center;
+    }
+
+    .notification-empty-icon {
+        width: 45px;
+        height: 45px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 11px;
+        color: var(--admin-green);
+        background: var(--admin-green-soft);
+        border: 1px solid rgba(22, 131, 79, 0.14);
+        border-radius: 13px;
+        font-size: 17px;
+    }
+
+    .notification-empty strong {
+        display: block;
+        color: var(--admin-navy);
+        font-size: 11.5px;
+        font-weight: 850;
+    }
+
+    .notification-empty p {
+        max-width: 250px;
+        margin: 7px auto 0;
+        color: var(--admin-muted);
+        font-size: 9px;
+        line-height: 1.6;
+    }
+
+    .notification-quick-links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        padding: 11px;
+        background: #fbfdfc;
+        border-top: 1px solid var(--admin-border);
+    }
+
+    .notification-quick-links a {
+        min-width: 0;
+        min-height: 59px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px 5px;
+        color: var(--admin-green-dark);
+        background: #ffffff;
+        border: 1px solid var(--admin-border);
+        border-radius: 11px;
+        font-size: 8px;
+        font-weight: 750;
+        text-align: center;
+        text-decoration: none;
+        transition:
+            color 0.18s ease,
+            background 0.18s ease,
+            border-color 0.18s ease;
+    }
+
+    .notification-quick-links a:hover {
+        color: #ffffff;
+        background: var(--admin-green);
+        border-color: var(--admin-green);
+    }
+
+    .notification-quick-links i {
+        font-size: 14px;
+    }
+
+    @keyframes adminNotificationIn {
+        from {
+            opacity: 0;
+            transform: translateY(-7px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 991px) {
+        .navbar-meta {
+            display: none !important;
+        }
+
+        .navbar .notification-dropdown {
+            display: block !important;
+        }
+
+        .navbar .notif {
+            width: 38px !important;
+            height: 38px !important;
+            min-width: 38px !important;
+            min-height: 38px !important;
+            display: grid !important;
+            place-items: center !important;
+            flex: 0 0 38px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            color: var(--admin-green-dark) !important;
+            background: var(--admin-green-soft) !important;
+            border: 1px solid rgba(22, 131, 79, 0.17) !important;
+            border-radius: 10px !important;
+            box-shadow: none !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
+        }
+
+        .notification-panel {
+            position: fixed;
+            top: 64px;
+            right: 8px;
+            left: 8px;
+            width: auto;
+            max-width: none;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .navbar .notif {
+            width: 36px !important;
+            height: 36px !important;
+            min-width: 36px !important;
+            min-height: 36px !important;
+        }
+
+        .notification-panel {
+            top: 62px;
+        }
+    }
+
 </style>
 
 <script>
@@ -844,3 +1267,92 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 });
 </script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const notificationDropdown = document.querySelector(
+        '[data-notification-dropdown]'
+    );
+
+    const notificationToggle = document.querySelector(
+        '[data-notification-toggle]'
+    );
+
+    const notificationPanel = document.querySelector(
+        '[data-notification-panel]'
+    );
+
+    if (
+        !notificationDropdown ||
+        !notificationToggle ||
+        !notificationPanel
+    ) {
+        return;
+    }
+
+    function closeNotificationPanel() {
+        notificationDropdown.classList.remove('is-open');
+
+        notificationToggle.setAttribute(
+            'aria-expanded',
+            'false'
+        );
+    }
+
+    function openNotificationPanel() {
+        notificationDropdown.classList.add('is-open');
+
+        notificationToggle.setAttribute(
+            'aria-expanded',
+            'true'
+        );
+    }
+
+    notificationToggle.addEventListener(
+        'click',
+        function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (
+                notificationDropdown.classList.contains(
+                    'is-open'
+                )
+            ) {
+                closeNotificationPanel();
+            } else {
+                openNotificationPanel();
+            }
+        }
+    );
+
+    notificationPanel.addEventListener(
+        'click',
+        function (event) {
+            event.stopPropagation();
+        }
+    );
+
+    document.addEventListener(
+        'click',
+        function (event) {
+            if (
+                !notificationDropdown.contains(event.target)
+            ) {
+                closeNotificationPanel();
+            }
+        }
+    );
+
+    document.addEventListener(
+        'keydown',
+        function (event) {
+            if (event.key === 'Escape') {
+                closeNotificationPanel();
+            }
+        }
+    );
+});
+</script>
+
