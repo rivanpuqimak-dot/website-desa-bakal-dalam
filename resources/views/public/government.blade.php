@@ -369,15 +369,6 @@
         transform: translateY(0);
     }
 
-    .government-person-hint {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        margin-top: 7px;
-        color: rgba(255, 255, 255, 0.79);
-        font-size: 9px;
-        font-weight: 650;
-    }
 
     /* =====================================================
        MODAL PROFIL APARAT
@@ -521,10 +512,48 @@
         font-style: italic;
     }
 
+    .government-profile-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 14px 20px;
+        background: #ffffff;
+        border-top: 1px solid var(--government-border);
+    }
+
+    .government-profile-back-button {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 9px 16px;
+        color: #ffffff;
+        background: linear-gradient(
+            135deg,
+            var(--government-green-dark),
+            var(--government-green)
+        );
+        border: 0;
+        border-radius: 10px;
+        box-shadow: 0 9px 20px rgba(15, 99, 60, 0.16);
+        font-size: 11px;
+        font-weight: 800;
+        cursor: pointer;
+    }
+
+    .government-profile-back-button:hover {
+        color: #ffffff;
+        filter: brightness(0.96);
+    }
+
+    .government-profile-back-button:focus-visible {
+        outline: 4px solid rgba(22, 131, 79, 0.22);
+        outline-offset: 2px;
+    }
+
     @media (max-width: 700px) {
         .government-person-photo-overlay {
-            opacity: 1;
-            transform: none;
+            display: none;
         }
 
         .government-profile-modal .modal-dialog {
@@ -543,6 +572,15 @@
 
         .government-profile-content {
             padding: 23px 20px 27px;
+        }
+
+        .government-profile-footer {
+            padding: 12px 14px 14px;
+        }
+
+        .government-profile-back-button {
+            width: 100%;
+            min-height: 44px;
         }
     }
 
@@ -1119,10 +1157,6 @@
                                     {{ $official->jabatan }}
                                 </div>
 
-                                <span class="government-person-hint">
-                                    <i class="bi bi-hand-index-thumb"></i>
-                                    Klik foto untuk melihat profil
-                                </span>
 
                             </div>
 
@@ -1246,6 +1280,17 @@
 
                                 </div>
 
+                            </div>
+
+                            <div class="modal-footer government-profile-footer">
+                                <button
+                                    type="button"
+                                    class="government-profile-back-button"
+                                    data-bs-dismiss="modal"
+                                >
+                                    <i class="bi bi-arrow-left"></i>
+                                    Kembali
+                                </button>
                             </div>
 
                         </div>
