@@ -2766,6 +2766,192 @@
     }
 </style>
 
+
+<style>
+    /* =====================================================
+       BERITA BERANDA FINAL — KARTU BENAR-BENAR RINGKAS
+       Menggunakan nama class baru agar tidak ditimpa CSS lama.
+    ===================================================== */
+
+    .village-news-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .village-news-card {
+        height: 142px;
+        display: grid;
+        grid-template-columns: 168px minmax(0, 1fr);
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid var(--home-border, #dfe9e3);
+        border-radius: 15px;
+        box-shadow: 0 8px 22px rgba(18, 69, 43, 0.06);
+    }
+
+    .village-news-card__image {
+        position: relative;
+        width: 168px;
+        height: 142px;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        color: var(--home-green, #16834f);
+        background-color: #edf5f0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-right: 1px solid var(--home-border, #dfe9e3);
+        text-decoration: none;
+    }
+
+    .village-news-card__image i {
+        position: relative;
+        z-index: 0;
+        font-size: 25px;
+        opacity: 0.4;
+    }
+
+    .village-news-card__image[style] i {
+        opacity: 0;
+    }
+
+    .village-news-card__content {
+        min-width: 0;
+        height: 142px;
+        display: flex;
+        flex-direction: column;
+        padding: 12px 15px;
+    }
+
+    .village-news-card__date {
+        color: var(--home-green, #16834f);
+        font-size: 8.5px;
+        font-weight: 850;
+        line-height: 1.2;
+    }
+
+    .village-news-card__title {
+        display: -webkit-box;
+        margin: 5px 0 0;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 850;
+        line-height: 1.3;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .village-news-card__title a {
+        color: var(--home-navy, #12251c);
+        text-decoration: none;
+    }
+
+    .village-news-card__excerpt {
+        display: -webkit-box;
+        margin: 5px 0 0;
+        overflow: hidden;
+        color: var(--home-muted, #6e7d74);
+        font-size: 9px;
+        line-height: 1.45;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .village-news-card__link {
+        width: fit-content;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: auto;
+        color: var(--home-green-dark, #0d6139);
+        font-size: 8px;
+        font-weight: 850;
+        text-decoration: none;
+    }
+
+    .village-news-card__link:hover {
+        color: var(--home-green, #16834f);
+    }
+
+    @media (max-width: 767.98px) {
+        .home-news {
+            padding-top: 30px !important;
+            padding-bottom: 30px !important;
+        }
+
+        .village-news-list {
+            gap: 9px;
+        }
+
+        .village-news-card {
+            height: 122px;
+            grid-template-columns: 92px minmax(0, 1fr);
+            border-radius: 13px;
+        }
+
+        .village-news-card__image {
+            width: 92px;
+            height: 122px;
+        }
+
+        .village-news-card__content {
+            height: 122px;
+            padding: 9px 10px;
+        }
+
+        .village-news-card__date {
+            font-size: 7px;
+        }
+
+        .village-news-card__title {
+            margin-top: 4px;
+            font-size: 10.5px;
+            line-height: 1.3;
+        }
+
+        .village-news-card__excerpt {
+            margin-top: 4px;
+            font-size: 7.5px;
+            line-height: 1.4;
+        }
+
+        .village-news-card__link {
+            font-size: 7px;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .village-news-card {
+            height: 112px;
+            grid-template-columns: 80px minmax(0, 1fr);
+        }
+
+        .village-news-card__image {
+            width: 80px;
+            height: 112px;
+        }
+
+        .village-news-card__content {
+            height: 112px;
+            padding: 8px 9px;
+        }
+
+        .village-news-card__title {
+            font-size: 9.7px;
+        }
+
+        .village-news-card__excerpt {
+            font-size: 7px;
+        }
+
+        .village-news-card__link {
+            font-size: 6.7px;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -3487,6 +3673,7 @@
 {{-- BERITA --}}
 <section id="berita" class="home-section home-news">
     <div class="container">
+
         <div class="home-section-heading">
             <div>
                 <span class="home-section-label">
@@ -3505,84 +3692,94 @@
         </div>
 
         @if($news->isEmpty())
-            <div class="home-empty">Belum ada berita publik terbaru.</div>
+
+            <div class="home-empty">
+                Belum ada berita publik terbaru.
+            </div>
+
         @else
-            <div class="home-news-grid">
+
+            <div class="village-news-list">
+
                 @foreach($news->take(3) as $item)
+
                     @php
-                        $newsImage = !empty($item->gambar)
-                            ? asset('storage/' . $item->gambar)
-                            : asset('images/transparent.png');
+                        $newsImage = filled($item->gambar)
+                            ? asset(
+                                'storage/' .
+                                ltrim($item->gambar, '/')
+                            )
+                            : null;
 
                         $newsUrl =
                             \Illuminate\Support\Facades\Route::has(
                                 'public.news.show'
                             )
                                 ? route('public.news.show', $item)
-                                : url('/#berita');
+                                : route('public.news');
                     @endphp
 
-                    <article class="home-news-card">
+                    <article class="village-news-card">
+
                         <a
                             href="{{ $newsUrl }}"
-                            class="home-news-image"
-                        >
-                            <img
-                                src="{{ $newsImage }}"
-                                alt=""
-                                loading="lazy"
-                                onerror="
-                                    this.hidden = true;
-                                    this.nextElementSibling.hidden = false;
-                                    this.parentElement.classList.add(
-                                        'is-image-missing'
-                                    );
+                            class="village-news-card__image"
+                            @if($newsImage)
+                                style="
+                                    background-image:
+                                    url('{{ $newsImage }}');
                                 "
-                            >
-
-                            <span
-                                class="home-news-image-fallback"
-                                hidden
-                            >
-                                <i class="bi bi-newspaper"></i>
-                            </span>
+                            @endif
+                            aria-label="Baca berita {{ $item->judul }}"
+                        >
+                            <i
+                                class="bi bi-newspaper"
+                                aria-hidden="true"
+                            ></i>
                         </a>
 
-                        <div class="home-news-content">
-                            <span class="home-news-date">
+                        <div class="village-news-card__content">
+
+                            <time class="village-news-card__date">
                                 {{ $item->published_at
-                                    ? $item->published_at->translatedFormat(
-                                        'd F Y'
-                                    )
+                                    ? $item->published_at
+                                        ->translatedFormat('d F Y')
                                     : 'Tanggal tidak tersedia'
                                 }}
-                            </span>
+                            </time>
 
-                            <h3>
+                            <h3 class="village-news-card__title">
                                 <a href="{{ $newsUrl }}">
                                     {{ $item->judul }}
                                 </a>
                             </h3>
 
-                            <p>
+                            <p class="village-news-card__excerpt">
                                 {{ \Illuminate\Support\Str::limit(
                                     $item->excerpt
                                         ?? 'Informasi berita desa.',
-                                    90
+                                    100
                                 ) }}
                             </p>
 
                             <a
                                 href="{{ $newsUrl }}"
-                                class="home-news-button"
+                                class="village-news-card__link"
                             >
-                                Baca Selengkapnya
+                                Baca selengkapnya
+                                <i class="bi bi-arrow-right"></i>
                             </a>
+
                         </div>
+
                     </article>
+
                 @endforeach
+
             </div>
+
         @endif
+
     </div>
 </section>
 
