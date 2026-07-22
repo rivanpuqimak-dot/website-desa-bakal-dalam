@@ -2952,6 +2952,69 @@
     }
 </style>
 
+
+<style>
+    /* GALERI BERANDA FINAL:
+       6 foto desktop, 4 tablet, 3 Android */
+
+    .home-gallery-grid {
+        display: grid !important;
+        grid-template-columns:
+            repeat(6, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .home-gallery-card {
+        min-width: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        border-radius: 12px !important;
+    }
+
+    .home-gallery-card > a {
+        position: relative !important;
+        width: 100% !important;
+        display: block !important;
+        overflow: hidden !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+
+    .home-gallery-card img {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
+    @media (max-width: 1199.98px) {
+        .home-gallery-grid {
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr)) !important;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .home-gallery {
+            padding-top: 32px !important;
+            padding-bottom: 32px !important;
+        }
+
+        .home-gallery-grid {
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr)) !important;
+            gap: 6px !important;
+        }
+
+        .home-gallery-card {
+            border-radius: 8px !important;
+            box-shadow: none !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -4005,7 +4068,7 @@
             <div class="home-empty">Belum ada foto galeri.</div>
         @else
             <div class="home-gallery-grid">
-                @foreach($galleries->take(5) as $gallery)
+                @foreach($galleries->take(6) as $gallery)
                     @php
                         $galleryImage = !empty($gallery->gambar)
                             ? asset('storage/' . $gallery->gambar)
