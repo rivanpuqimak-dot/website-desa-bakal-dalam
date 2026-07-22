@@ -2,6 +2,11 @@
 
 @section('title', 'Beranda Desa Bakal Dalam')
 
+@section(
+    'meta_description',
+    'Website Resmi Desa Bakal Dalam, Kecamatan Talo Kecil, Kabupaten Seluma. Temukan profil desa, pemerintahan, berita, pengumuman, agenda, galeri, potensi, layanan, dan kontak resmi desa.'
+)
+
 @push('styles')
 <style>
     .home-section {
@@ -2360,6 +2365,407 @@
     }
 </style>
 
+
+@push('styles')
+<style>
+    /* =====================================================
+       BERITA TERBARU — FOTO KIRI, INFORMASI KANAN
+    ===================================================== */
+
+    .home-news-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .home-news-card {
+        min-height: 210px !important;
+        display: grid !important;
+        grid-template-columns: minmax(250px, 32%) minmax(0, 1fr) !important;
+        overflow: hidden !important;
+        background: #ffffff !important;
+        border: 1px solid var(--home-border, #dfe9e3) !important;
+        border-radius: 18px !important;
+        box-shadow: 0 10px 28px rgba(18, 69, 43, 0.07) !important;
+    }
+
+    .home-news-image {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 210px !important;
+        display: block !important;
+        overflow: hidden !important;
+        aspect-ratio: auto !important;
+        border-right: 1px solid var(--home-border, #dfe9e3);
+    }
+
+    .home-news-image img,
+    .home-news-image-fallback {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 210px !important;
+    }
+
+    .home-news-image img {
+        display: block !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
+    .home-news-content {
+        min-width: 0 !important;
+        min-height: 210px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding: 24px 26px !important;
+    }
+
+    .home-news-date {
+        margin-bottom: 8px !important;
+        font-size: 10px !important;
+    }
+
+    .home-news-content h3 {
+        height: auto !important;
+        display: -webkit-box !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        font-size: clamp(18px, 2vw, 24px) !important;
+        line-height: 1.28 !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+    }
+
+    .home-news-content p {
+        height: auto !important;
+        display: -webkit-box !important;
+        margin: 10px 0 16px !important;
+        overflow: hidden !important;
+        font-size: 12px !important;
+        line-height: 1.65 !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 3 !important;
+    }
+
+    .home-news-button {
+        align-self: flex-start !important;
+        margin-top: 0 !important;
+        padding: 8px 12px !important;
+        font-size: 10px !important;
+    }
+
+    /* =====================================================
+       PENGUMUMAN — TOMBOL DETAIL
+    ===================================================== */
+
+    .home-announcement-detail-link,
+    .home-agenda-detail-link {
+        width: fit-content;
+        min-height: 35px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 11px;
+        padding: 7px 11px;
+        color: var(--home-green-dark, #0d6139);
+        background: var(--home-green-soft, #eef7f2);
+        border: 1px solid rgba(22, 131, 79, 0.18);
+        border-radius: 9px;
+        font-size: 9px;
+        font-weight: 850;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+    .home-announcement-detail-link:hover,
+    .home-agenda-detail-link:hover {
+        color: #ffffff;
+        background: var(--home-green, #16834f);
+        border-color: var(--home-green, #16834f);
+        transform: translateX(2px);
+    }
+
+    @media (max-width: 767.98px) {
+        .home-news {
+            padding-top: 38px !important;
+            padding-bottom: 38px !important;
+        }
+
+        .home-news-grid {
+            gap: 11px !important;
+        }
+
+        .home-news-card {
+            min-height: 142px !important;
+            grid-template-columns: 112px minmax(0, 1fr) !important;
+            border-radius: 14px !important;
+        }
+
+        .home-news-image,
+        .home-news-image img,
+        .home-news-image-fallback {
+            min-height: 142px !important;
+        }
+
+        .home-news-content {
+            min-height: 142px !important;
+            justify-content: flex-start !important;
+            padding: 12px 13px !important;
+        }
+
+        .home-news-date {
+            margin-bottom: 5px !important;
+            font-size: 7.8px !important;
+        }
+
+        .home-news-content h3 {
+            font-size: 12px !important;
+            line-height: 1.35 !important;
+        }
+
+        .home-news-content p {
+            margin: 6px 0 8px !important;
+            font-size: 8.7px !important;
+            line-height: 1.45 !important;
+            -webkit-line-clamp: 2 !important;
+        }
+
+        .home-news-button {
+            margin-top: auto !important;
+            padding: 5px 8px !important;
+            border-radius: 7px !important;
+            font-size: 7.8px !important;
+        }
+
+        .home-information-item h4 {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .home-information-item p {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .home-news-card {
+            min-height: 132px !important;
+            grid-template-columns: 96px minmax(0, 1fr) !important;
+        }
+
+        .home-news-image,
+        .home-news-image img,
+        .home-news-image-fallback,
+        .home-news-content {
+            min-height: 132px !important;
+        }
+
+        .home-news-content {
+            padding: 10px 11px !important;
+        }
+
+        .home-news-content h3 {
+            font-size: 11px !important;
+        }
+    }
+</style>
+@endpush
+
+
+<style>
+    /* =====================================================
+       BERITA BERANDA — FOTO KECIL DAN KARTU RINGKAS
+    ===================================================== */
+
+    .home-news-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .home-news-card {
+        min-height: 132px !important;
+        display: grid !important;
+        grid-template-columns: 190px minmax(0, 1fr) !important;
+        align-items: stretch !important;
+        overflow: hidden !important;
+        background: #ffffff !important;
+        border: 1px solid var(--home-border, #dfe9e3) !important;
+        border-radius: 15px !important;
+        box-shadow: 0 7px 20px rgba(18, 69, 43, 0.06) !important;
+    }
+
+    .home-news-image {
+        width: 190px !important;
+        height: 132px !important;
+        min-height: 132px !important;
+        display: block !important;
+        overflow: hidden !important;
+        aspect-ratio: auto !important;
+        background: #edf4ef !important;
+        border-right: 1px solid var(--home-border, #dfe9e3) !important;
+    }
+
+    .home-news-image img,
+    .home-news-image-fallback {
+        width: 100% !important;
+        height: 132px !important;
+        min-height: 132px !important;
+    }
+
+    .home-news-image img {
+        display: block !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
+    .home-news-content {
+        min-width: 0 !important;
+        min-height: 132px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        padding: 13px 16px !important;
+    }
+
+    .home-news-date {
+        margin: 0 0 5px !important;
+        font-size: 8.5px !important;
+        line-height: 1.2 !important;
+    }
+
+    .home-news-content h3 {
+        height: auto !important;
+        display: -webkit-box !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        font-size: 15px !important;
+        line-height: 1.32 !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+    }
+
+    .home-news-content p {
+        height: auto !important;
+        display: -webkit-box !important;
+        margin: 6px 0 9px !important;
+        overflow: hidden !important;
+        font-size: 9.5px !important;
+        line-height: 1.48 !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+    }
+
+    .home-news-button {
+        width: fit-content !important;
+        align-self: flex-start !important;
+        margin: 0 !important;
+        padding: 5px 9px !important;
+        border-radius: 7px !important;
+        font-size: 8.3px !important;
+        line-height: 1.2 !important;
+    }
+
+    @media (max-width: 767.98px) {
+        .home-news {
+            padding-top: 32px !important;
+            padding-bottom: 32px !important;
+        }
+
+        .home-news-grid {
+            gap: 9px !important;
+        }
+
+        .home-news-card {
+            min-height: 116px !important;
+            grid-template-columns: 96px minmax(0, 1fr) !important;
+            border-radius: 13px !important;
+        }
+
+        .home-news-image {
+            width: 96px !important;
+            height: 116px !important;
+            min-height: 116px !important;
+        }
+
+        .home-news-image img,
+        .home-news-image-fallback {
+            height: 116px !important;
+            min-height: 116px !important;
+        }
+
+        .home-news-content {
+            min-height: 116px !important;
+            justify-content: flex-start !important;
+            padding: 9px 10px !important;
+        }
+
+        .home-news-date {
+            margin-bottom: 4px !important;
+            font-size: 7.2px !important;
+        }
+
+        .home-news-content h3 {
+            font-size: 10.8px !important;
+            line-height: 1.32 !important;
+        }
+
+        .home-news-content p {
+            margin: 4px 0 6px !important;
+            font-size: 7.8px !important;
+            line-height: 1.42 !important;
+            -webkit-line-clamp: 2 !important;
+        }
+
+        .home-news-button {
+            margin-top: auto !important;
+            padding: 4px 7px !important;
+            font-size: 7px !important;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .home-news-card {
+            min-height: 106px !important;
+            grid-template-columns: 82px minmax(0, 1fr) !important;
+        }
+
+        .home-news-image {
+            width: 82px !important;
+            height: 106px !important;
+            min-height: 106px !important;
+        }
+
+        .home-news-image img,
+        .home-news-image-fallback {
+            height: 106px !important;
+            min-height: 106px !important;
+        }
+
+        .home-news-content {
+            min-height: 106px !important;
+            padding: 8px 9px !important;
+        }
+
+        .home-news-content h3 {
+            font-size: 10px !important;
+        }
+
+        .home-news-content p {
+            font-size: 7.2px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
@@ -3271,6 +3677,17 @@
                                     @endif
 
                                 </div>
+
+                                <a
+                                    href="{{ route(
+                                        'public.announcements.show',
+                                        $announcement
+                                    ) }}"
+                                    class="home-announcement-detail-link"
+                                >
+                                    Lihat Selengkapnya
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
 
                             </div>
 
