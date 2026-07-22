@@ -3081,6 +3081,78 @@
     }
 </style>
 
+
+<style>
+    /* =====================================================
+       GALERI BERANDA — OVERRIDE FINAL
+       Desktop 6 kolom, tablet 4 kolom, Android 3 kolom.
+       Selector dibuat lebih spesifik agar CSS lama tidak menang.
+    ===================================================== */
+
+    .home-page .home-gallery .home-gallery-grid {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .home-page .home-gallery .home-gallery-grid > .home-gallery-card {
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        margin: 0 !important;
+        flex: none !important;
+        flex-basis: auto !important;
+        overflow: hidden !important;
+        border-radius: 11px !important;
+    }
+
+    .home-page .home-gallery .home-gallery-card > a {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        overflow: hidden !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+
+    .home-page .home-gallery .home-gallery-card img {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+
+    @media (max-width: 1199.98px) and (min-width: 992px) {
+        .home-page .home-gallery .home-gallery-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
+    }
+
+    /* Android dan tablet kecil tetap tiga foto sebaris. */
+    @media (max-width: 991.98px) {
+        .home-page .home-gallery .home-gallery-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 7px !important;
+        }
+
+        .home-page .home-gallery .home-gallery-grid > .home-gallery-card {
+            border-radius: 8px !important;
+            box-shadow: none !important;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .home-page .home-gallery .home-gallery-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 5px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
