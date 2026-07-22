@@ -36,6 +36,9 @@ Route::middleware('public.maintenance')
     Route::get('/', 'index')
         ->name('home');
 
+    Route::get('/sitemap.xml', 'sitemap')
+        ->name('public.sitemap');
+
     Route::get('/profil-desa', 'profile')
         ->name('public.profile');
 

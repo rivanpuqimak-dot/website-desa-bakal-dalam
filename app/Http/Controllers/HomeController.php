@@ -19,6 +19,7 @@ use App\Models\VillageService;
 use App\Models\VillageStatistic;
 use App\Models\VisionMission;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -141,6 +142,136 @@ class HomeController extends Controller
             'bpds',
             'institutions'
         ));
+    }
+
+    /**
+     * Sitemap XML untuk membantu mesin pencari menemukan
+     * halaman publik dan konten terbaru website desa.
+     */
+    public function sitemap(): Response
+    {
+        $urls = collect([
+            [
+                'loc' => route('home'),
+                'lastmod' => Setting::query()->max('updated_at'),
+                'changefreq' => 'daily',
+                'priority' => '1.0',
+            ],
+            [
+                'loc' => route('public.profile'),
+                'lastmod' => VillageProfile::query()->max('updated_at'),
+                'changefreq' => 'monthly',
+                'priority' => '0.9',
+            ],
+            [
+                'loc' => route('public.government'),
+                'lastmod' => Official::query()->max('updated_at'),
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
+            ],
+            [
+                'loc' => route('public.potentials'),
+                'lastmod' => Potential::query()->max('updated_at'),
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ],
+            [
+                'loc' => route('public.news'),
+                'lastmod' => News::query()->max('updated_at'),
+                'changefreq' => 'daily',
+                'priority' => '0.9',
+            ],
+            [
+                'loc' => route('public.galleries'),
+                'lastmod' => Gallery::query()->max('updated_at'),
+                'changefreq' => 'weekly',
+                'priority' => '0.7',
+            ],
+            [
+                'loc' => route('public.services.index'),
+                'lastmod' => VillageService::query()->max('updated_at'),
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
+            ],
+            [
+                'loc' => route('public.contact'),
+                'lastmod' => Contact::query()->max('updated_at'),
+                'changefreq' => 'monthly',
+                'priority' => '0.7',
+            ],
+        ]);
+
+        News::query()
+            ->where('status', 'Publik')
+            ->whereNotNull('published_at')
+            ->whereDate('published_at', '<=', today())
+            ->latest('updated_at')
+            ->get()
+            ->each(function (News $item) use ($urls): void {
+                $urls->push([
+                    'loc' => route('public.news.show', $item),
+                    'lastmod' => $item->updated_at,
+                    'changefreq' => 'weekly',
+                    'priority' => '0.8',
+                ]);
+            });
+
+        Potential::query()
+            ->where('status', 'Publik')
+            ->latest('updated_at')
+            ->get()
+            ->each(function (Potential $item) use ($urls): void {
+                $urls->push([
+                    'loc' => route('public.potentials.show', $item),
+                    'lastmod' => $item->updated_at,
+                    'changefreq' => 'monthly',
+                    'priority' => '0.7',
+                ]);
+            });
+
+        Agenda::query()
+            ->where('status', 'Publik')
+            ->latest('updated_at')
+            ->get()
+            ->each(function (Agenda $item) use ($urls): void {
+                $urls->push([
+                    'loc' => route('public.agenda.detail', $item),
+                    'lastmod' => $item->updated_at,
+                    'changefreq' => 'weekly',
+                    'priority' => '0.6',
+                ]);
+            });
+
+        Announcement::query()
+            ->where('status', 'Publik')
+            ->where(function ($query): void {
+                $query
+                    ->whereNull('published_at')
+                    ->orWhereDate('published_at', '<=', today());
+            })
+            ->latest('updated_at')
+            ->get()
+            ->each(function (Announcement $item) use ($urls): void {
+                $urls->push([
+                    'loc' => route(
+                        'public.announcements.show',
+                        $item
+                    ),
+                    'lastmod' => $item->updated_at,
+                    'changefreq' => 'weekly',
+                    'priority' => '0.7',
+                ]);
+            });
+
+        return response()
+            ->view(
+                'public.sitemap',
+                ['urls' => $urls]
+            )
+            ->header(
+                'Content-Type',
+                'application/xml; charset=UTF-8'
+            );
     }
 
     /**

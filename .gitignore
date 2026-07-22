@@ -42,3 +42,7 @@ Thumbs.db
 !/storage/logs/.gitignore
 
 # public/build sengaja DIKOMIT agar shared hosting tidak wajib menjalankan npm build.
+
+# Database exports must never be committed
+*.sql
+database-*.sql

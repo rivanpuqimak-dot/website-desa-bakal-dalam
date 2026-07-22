@@ -20,6 +20,9 @@
         $siteProfile = $profile
             ?? \App\Models\VillageProfile::query()->first();
 
+        $siteContact = $contact
+            ?? \App\Models\Contact::query()->first();
+
         $siteName = trim(
             (string) (
                 $siteSettings?->nama_website
@@ -103,6 +106,65 @@
             : null;
 
         $canonicalUrl = url()->current();
+
+
+        $organizationSameAs = collect([
+            $siteContact?->facebook,
+            $siteContact?->instagram,
+            $siteContact?->youtube,
+            $siteContact?->tiktok,
+        ])
+            ->filter(fn ($url) => filled($url))
+            ->values()
+            ->all();
+
+        $organizationSchema = array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'GovernmentOrganization',
+            '@id' => url('/#organization'),
+            'name' => $siteName,
+            'alternateName' => 'Pemerintah Desa Bakal Dalam',
+            'url' => url('/'),
+            'logo' => $siteLogoUrl,
+            'image' => $siteSocialImageUrl,
+            'description' => $siteDescription,
+            'email' => $siteContact?->email,
+            'telephone' => $siteContact?->telepon
+                ?: $siteContact?->whatsapp,
+            'address' => array_filter([
+                '@type' => 'PostalAddress',
+                'streetAddress' => $siteContact?->alamat,
+                'addressLocality' => $siteProfile?->nama_desa
+                    ?: 'Desa Bakal Dalam',
+                'addressRegion' => $siteProfile?->provinsi
+                    ?: 'Bengkulu',
+                'postalCode' => $siteProfile?->kode_pos,
+                'addressCountry' => 'ID',
+            ]),
+            'geo' => filled($siteProfile?->latitude)
+                && filled($siteProfile?->longitude)
+                ? [
+                    '@type' => 'GeoCoordinates',
+                    'latitude' => (string) $siteProfile->latitude,
+                    'longitude' => (string) $siteProfile->longitude,
+                ]
+                : null,
+            'sameAs' => $organizationSameAs ?: null,
+        ]);
+
+        $websiteSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            '@id' => url('/#website'),
+            'url' => url('/'),
+            'name' => $siteName,
+            'alternateName' => 'Website Resmi Desa Bakal Dalam',
+            'description' => $siteDescription,
+            'inLanguage' => 'id-ID',
+            'publisher' => [
+                '@id' => url('/#organization'),
+            ],
+        ];
     @endphp
 
     <title>{{ $documentTitle }}</title>
@@ -190,6 +252,29 @@
             content="{{ $siteSocialImageUrl }}"
         >
     @endif
+
+    <link
+        rel="sitemap"
+        type="application/xml"
+        title="Sitemap"
+        href="{{ route('public.sitemap') }}"
+    >
+
+    <script type="application/ld+json">
+        {!! json_encode(
+            $organizationSchema,
+            JSON_UNESCAPED_SLASHES |
+            JSON_UNESCAPED_UNICODE
+        ) !!}
+    </script>
+
+    <script type="application/ld+json">
+        {!! json_encode(
+            $websiteSchema,
+            JSON_UNESCAPED_SLASHES |
+            JSON_UNESCAPED_UNICODE
+        ) !!}
+    </script>
 
     <link
         rel="icon"

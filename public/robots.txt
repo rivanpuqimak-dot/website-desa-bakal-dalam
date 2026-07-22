@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /password/
+
+Sitemap: https://desabakaldalam.web.id/sitemap.xml
