@@ -3015,6 +3015,72 @@
     }
 </style>
 
+
+<style>
+    /* =====================================================
+       FONT JUDUL BERANDA — SERAGAM
+    ===================================================== */
+
+    .home-section-heading h2,
+    .home-profile-content h2,
+    .home-contact-card h2,
+    .home-sambutan-card h2,
+    .home-stat-heading,
+    .home-cta h2 {
+        margin-top: 0 !important;
+        font-size: 34px !important;
+        font-weight: 850 !important;
+        line-height: 1.18 !important;
+        letter-spacing: -0.035em !important;
+    }
+
+    .home-section-label {
+        font-size: 11px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.10em !important;
+    }
+
+    @media (max-width: 991.98px) {
+        .home-section-heading h2,
+        .home-profile-content h2,
+        .home-contact-card h2,
+        .home-sambutan-card h2,
+        .home-stat-heading,
+        .home-cta h2 {
+            font-size: 29px !important;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .home-section-heading h2,
+        .home-profile-content h2,
+        .home-contact-card h2,
+        .home-sambutan-card h2,
+        .home-stat-heading,
+        .home-cta h2 {
+            font-size: 24px !important;
+            line-height: 1.22 !important;
+            letter-spacing: -0.028em !important;
+        }
+
+        .home-section-label {
+            font-size: 9px !important;
+            letter-spacing: 0.09em !important;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .home-section-heading h2,
+        .home-profile-content h2,
+        .home-contact-card h2,
+        .home-sambutan-card h2,
+        .home-stat-heading,
+        .home-cta h2 {
+            font-size: 22px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
