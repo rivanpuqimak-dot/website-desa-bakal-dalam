@@ -645,6 +645,7 @@
         'Kesehatan',
         'UMKM',
         'Wisata',
+        'Kebudayaan',
         'Pengumuman',
         'Kegiatan',
         'Lainnya',
