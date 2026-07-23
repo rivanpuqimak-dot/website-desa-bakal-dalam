@@ -101,8 +101,15 @@ class HomeController extends Controller
             ->where('status', 'Publik')
             ->whereNotNull('published_at')
             ->whereDate('published_at', '<=', today())
+            /*
+             * Berita dengan tanggal publikasi terbaru selalu berada
+             * paling atas. Status unggulan hanya menjadi pembeda jika
+             * beberapa berita memiliki tanggal publikasi yang sama.
+             */
+            ->orderByDesc('published_at')
             ->orderByDesc('featured')
-            ->latest('published_at')
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->take(6)
             ->get();
 
@@ -374,8 +381,10 @@ class HomeController extends Controller
                     ->where('status', 'Publik')
                     ->whereNotNull('published_at')
                     ->whereDate('published_at', '<=', today())
+                    ->orderByDesc('published_at')
                     ->orderByDesc('featured')
-                    ->latest('published_at')
+                    ->orderByDesc('created_at')
+                    ->orderByDesc('id')
                     ->paginate(9)
                     ->withQueryString(),
             ]

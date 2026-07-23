@@ -26,7 +26,11 @@ class NewsController extends Controller
             });
         }
 
-        $news = $query->orderBy('published_at', 'desc')->paginate(12);
+        $news = $query
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->paginate(12);
 
         return view('admin.news.index', compact('news'));
     }
@@ -90,7 +94,11 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        $newsList = News::orderBy('published_at', 'desc')->paginate(12);
+        $newsList = News::query()
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->paginate(12);
 
         return view('admin.news.index', [
             'news' => $newsList,
