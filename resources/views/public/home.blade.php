@@ -3153,6 +3153,112 @@
     }
 </style>
 
+
+<style>
+    /* =====================================================
+       KARTU POTENSI BERANDA — TINGGI DAN POSISI SERAGAM
+    ===================================================== */
+
+    .home-potential-grid {
+        align-items: stretch !important;
+    }
+
+    .home-potential-card {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .home-potential-image {
+        width: 100% !important;
+        height: 290px !important;
+        min-height: 290px !important;
+        aspect-ratio: auto !important;
+        flex: 0 0 290px !important;
+    }
+
+    .home-potential-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+
+    .home-potential-content {
+        min-height: 245px !important;
+        display: flex !important;
+        flex: 1 1 auto !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+    }
+
+    .home-potential-content h3 {
+        min-height: 52px !important;
+        display: -webkit-box !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        line-height: 1.35 !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 2 !important;
+    }
+
+    .home-potential-content p {
+        min-height: 66px !important;
+        display: -webkit-box !important;
+        margin: 10px 0 18px !important;
+        overflow: hidden !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 3 !important;
+    }
+
+    .home-potential-content .home-card-link {
+        width: 100% !important;
+        min-height: 45px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: auto !important;
+    }
+
+    @media (max-width: 1199.98px) {
+        .home-potential-image {
+            height: 235px !important;
+            min-height: 235px !important;
+            flex-basis: 235px !important;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .home-potential-content {
+            min-height: 225px !important;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .home-potential-image {
+            height: 220px !important;
+            min-height: 220px !important;
+            flex-basis: 220px !important;
+        }
+
+        .home-potential-content {
+            min-height: 205px !important;
+            padding: 17px !important;
+        }
+
+        .home-potential-content h3 {
+            min-height: 44px !important;
+            font-size: 17px !important;
+        }
+
+        .home-potential-content p {
+            min-height: 58px !important;
+            margin-bottom: 14px !important;
+            font-size: 11.5px !important;
+        }
+    }
+</style>
+
 @section('content')
 
 @php
